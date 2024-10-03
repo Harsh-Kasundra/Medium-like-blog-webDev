@@ -1,29 +1,24 @@
 import { Hono } from "hono";
+import { userRouter } from "./routes/userRoutes";
+import { blogRouter } from "./routes/blogRoutes";
 
-const app = new Hono();
+const app = new Hono<{
+    Bindings: {
+        DATABASE_URL: string;
+        JWT_SECRET: string;
+    };
+    Variables: {
+        userId: string;
+    };
+}>();
 
-app.post("/api/v1/signup", (c) => {
-    return c.text("post ");
-});
+// Routing or Structuring the application
 
-app.post("/api/v1/signin", (c) => {
-    return c.text("post ");
-});
+app.route("/api/v1/user", userRouter);
+app.route("/api/v1/blog", blogRouter);
 
-app.post("/api/v1/blog", (c) => {
-    return c.text("post ");
-});
 
-app.put("/api/v1/blog", (c) => {
-    return c.text("post ");
-});
 
-app.get("/api/v1/blog/:id", (c) => {
-    return c.text("post ");
-});
 
-app.get("/api/v1/blug/bulk", (c) => {
-    return c.text("post ");
-});
 
 export default app;
